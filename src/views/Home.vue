@@ -3,10 +3,13 @@
     <a class="btn btn-ghost text-xl">Weather App</a>
     <SearchInput :cities="cities"/>
   </div>
-  <MeteoCard v-for="meteo in precedentMeteo"
+  <MeteoCard v-if="precedentMeteo.length > 0" v-for="meteo in precedentMeteo"
   :key="`data-${meteo.dt}`"
   :meteo="meteo"
   />
+  <div v-else class="h-screen w-full flex items-center justify-center">
+    <p>Vous n'avez aucune ville en favoris</p>
+  </div>
 </template>
 
 <script setup>

@@ -6,11 +6,11 @@
     </div>
     <Loading v-else-if="state==='loading'"/>
     <Erreur v-else :message="erreur"/>
-    <button class="btn btn-soft btn-circle btn-primary w-15 h-15 fixed top-9/10 left-1/10">
+    <button class="btn btn-soft btn-circle btn-primary w-15 h-15 fixed top-8/10 left-9/10" @click="addFavorite(data)">
         <img :src="StarLogo" alt="Logo favoris" class="w-10 h-10">
       </button>
     <router-link to="/">
-      <button class="btn btn-soft btn-circle btn-primary w-15 h-15 fixed top-9/10 left-8/10">
+      <button class="btn btn-soft btn-circle btn-primary w-15 h-15 fixed top-9/10 left-9/10">
         <img :src="HomeLogo" alt="Logo Home" class="w-10 h-10">
       </button>
     </router-link>
@@ -58,13 +58,6 @@ onMounted(async ()=> {
   }
 })
 
-
-
-
-
-
-
-
 watch(data,(newData) => {
   const precedentMeteo = JSON.parse(localStorage.getItem('precedentMeteo')) || []
   if(precedentMeteo.findIndex(meteo =>meteo.dt === newData.dt) === -1) {
@@ -76,5 +69,13 @@ watch(data,(newData) => {
   }
 
 })
+
+function addFavorite(meteo) {
+  const precedentMeteo = JSON.parse(localStorage.getItem("precedentMeteo"))
+  precedentMeteo.push(meteo)
+  localStorage.setItem("precedentMeteo",JSON.stringify(precedentMeteo))
+  console.log(meteo)
+  alert("la ville a été ajouté en favoris")
+}
 
 </script>
